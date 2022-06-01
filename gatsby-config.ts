@@ -1,7 +1,9 @@
 import type { GatsbyConfig } from "gatsby";
 
+const useCustomGraphqlTypegen = true;
+
 const config: GatsbyConfig = {
-  graphqlTypegen: true,
+  graphqlTypegen: !useCustomGraphqlTypegen,
   siteMetadata: {
     title: `My Gatsby Site`,
     siteUrl: `https://www.yourdomain.tld`,
@@ -29,5 +31,14 @@ const config: GatsbyConfig = {
     },
   ],
 };
+
+if (useCustomGraphqlTypegen) {
+  config.plugins?.push({
+    resolve: "@bond-london/gatsby-graphql-typegen",
+    options: {
+      gatsbyTypesFile: "gatsby-types.d.ts",
+    },
+  });
+}
 
 export default config;
